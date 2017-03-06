@@ -1,0 +1,35 @@
+
+********************************** APP PINS *******************************
+
+#define IR_OUT P0^0
+#define LDR_OUT P0^1
+#define RELAY P0^3
+#define ON 1
+#define OFF 0
+
+
+********************************** LCD PINS ******************************
+
+sbit RS = P1^2;
+sbit En = P1^3;
+sbit D4 = P1^4;
+sbit D5 = P1^5;
+sbit D6 = P1^6;
+sbit D7 = P1^7;
+
+************************************* ADC PINS ****************************
+
+
+
+#define adc_data P0
+
+sbit ALE	=P2^0;
+sbit SC		=P2^1;
+sbit EOC	=P2^2;
+sbit OE		=P2^3;
+sbit A0		=P2^4;
+sbit A1		=P2^5;
+sbit A2		=P2^6;
+
+
+************************************* SERIAL PINS *************************

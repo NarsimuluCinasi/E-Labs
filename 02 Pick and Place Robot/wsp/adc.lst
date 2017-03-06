@@ -1,0 +1,86 @@
+C51 COMPILER V9.02   ADC                                                                   02/22/2017 21:23:42 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN ..\bin\adc.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\drv\offchip_drivers\src\adc.c BROWSE INCDIR(..\drv\offchip_drivers\inclu
+                    -de;..\drv\onchip_drivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\adc.lst) OBJECT(..\bin\adc.obj)
+
+line level    source
+
+   1          
+   2          
+   3          #include<delay.h>
+   4          #include<reg52.h>
+   5          #include<adc.h>
+   6          #define adc_data P0
+   7          sbit ALE        =P2^0;
+   8          sbit SC         =P2^1;
+   9          sbit EOC        =P2^2;
+  10          sbit OE         =P2^3;
+  11          sbit A0         =P2^4;
+  12          sbit A1         =P2^5;
+  13          sbit A2         =P2^6;
+  14          
+  15          unsigned int out;
+  16          
+  17          unsigned char adc_read(unsigned char a, unsigned char b, unsigned char c)
+  18          
+  19          {
+  20   1      
+  21   1              A0=a;
+  22   1              A1=b;
+  23   1              A2=c;
+  24   1              ALE=1;
+  25   1              SC=1;
+  26   1              ALE=0;
+  27   1              SC=0;
+  28   1              while(EOC==0);
+  29   1              OE=1;
+  30   1              out=adc_data;
+  31   1              OE=0;
+  32   1      
+  33   1              out = reverse(out);
+  34   1              return(out);
+  35   1      }
+  36          
+  37          void adc_init(void)
+  38          {
+  39   1              adc_data=0xff;
+  40   1              ALE=0;
+  41   1              SC=0;
+  42   1              EOC=1;
+  43   1              OE=0;
+  44   1      }
+  45          
+  46          unsigned char reverse(unsigned char num)
+  47          {
+  48   1              unsigned char i, rev = 0;
+  49   1      
+  50   1              for(i=0; i<=8;i++)
+  51   1              {
+  52   2                      if((num&(1<<i)))
+  53   2                      {
+  54   3                              rev =rev|(1<<(8-i));
+C51 COMPILER V9.02   ADC                                                                   02/22/2017 21:23:42 PAGE 2   
+
+  55   3                      }
+  56   2              }
+  57   1              
+  58   1              return rev;
+  59   1      
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    111    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

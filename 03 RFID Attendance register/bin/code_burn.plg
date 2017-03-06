@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Work\Products\EE-Labs\temp\03 RFID Attendance register\wsp\project_start.uvproj
+Project File Date:  02/21/2017
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling lcd4bit.c...
+compiling delay.c...
+compiling uart.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MIN?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART_STRING?UART
+Program Size: data=43.0 xdata=0 code=1301
+creating hex file from "..\bin\code_burn"...
+"..\bin\code_burn" - 0 Error(s), 2 Warning(s).

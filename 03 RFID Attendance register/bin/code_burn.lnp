@@ -1,0 +1,7 @@
+"..\bin\STARTUP.obj",
+"..\bin\lcd4bit.obj",
+"..\bin\delay.obj",
+"..\bin\uart.obj",
+"..\bin\main.obj" 
+TO "..\bin\code_burn" 
+PRINT(".\code_burn.m51") RAMSIZE(256) 

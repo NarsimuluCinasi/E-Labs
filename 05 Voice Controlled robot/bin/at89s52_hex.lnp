@@ -1,0 +1,9 @@
+"..\bin\STARTUP.obj",
+"..\bin\main.obj",
+"..\bin\lcd4bit.obj",
+"..\bin\delay.obj",
+"..\bin\motor_control.obj",
+"..\bin\uart.obj",
+"..\bin\bluetooth.obj" 
+TO "..\bin\at89s52_hex" 
+PRINT(".\at89s52_hex.m51") RAMSIZE(256) 

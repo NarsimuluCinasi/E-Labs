@@ -1,0 +1,150 @@
+C51 COMPILER V9.02   LCD4BIT                                                               02/23/2017 18:46:36 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE LCD4BIT
+OBJECT MODULE PLACED IN ..\bin\lcd4bit.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\drv\offchip_drivers\src\lcd4bit.c BROWSE INCDIR(..\drv\offchip_drivers\i
+                    -nclude;..\drv\onchip_drivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\lcd4bit.lst) OBJECT(..\bin\lcd4bi
+                    -t.obj)
+
+line level    source
+
+   1          
+   2          
+   3          #include<reg52.h>
+   4          
+   5          #define LCD_Port P1
+   6          #define High 1
+   7          #define Low 0
+   8          
+   9          
+  10          sbit RS = P1^0;
+  11          sbit En = P1^1;
+  12          sbit D0 = P1^4;
+  13          sbit D1 = P1^5;
+  14          sbit D2 = P1^6;
+  15          sbit D3 = P1^7;
+  16          
+  17          void delay_lcd (void)
+  18          {
+  19   1              int del1,del2;
+  20   1              for(del1=0;del1<10;del1++)
+  21   1              {
+  22   2              for(del2=0;del2<200;del2++);
+  23   2              }
+  24   1      }
+  25          
+  26          
+  27          void write_nibble_lcd(unsigned char Val)
+  28          {
+  29   1              En = High;
+  30   1              D0 = D1 = D2 = D3 = 0;
+  31   1              if(Val & 0x01)
+  32   1                      D0 = 1;
+  33   1              if(Val & 0x02)
+  34   1                      D1 = 1;
+  35   1              if(Val & 0x04)
+  36   1                      D2 = 1;
+  37   1              if(Val & 0x08)
+  38   1                      D3 = 1;
+  39   1              En = Low;
+  40   1      }
+  41          
+  42          
+  43          void write_lcd(unsigned char Val)
+  44          {
+  45   1              write_nibble_lcd(Val >> 4);
+  46   1              write_nibble_lcd(Val);
+  47   1              delay_lcd();
+  48   1      }
+  49          
+  50          
+  51          
+  52          void lcd_clear(void)
+  53          {
+C51 COMPILER V9.02   LCD4BIT                                                               02/23/2017 18:46:36 PAGE 2   
+
+  54   1      RS = Low;
+  55   1      write_lcd(0x01);
+  56   1      write_lcd(0x01);
+  57   1      delay_lcd();delay_lcd();
+  58   1      
+  59   1      }
+  60          
+  61          
+  62          
+  63          void init_lcd(void)
+  64          {
+  65   1        RS = Low;
+  66   1      //  write_nibble_lcd(0x03);     delay_lcd();
+  67   1      //  write_nibble_lcd(0x03);     delay_lcd();
+  68   1        write_lcd(0x02);
+  69   1        write_lcd(0x28);
+  70   1        write_lcd(0x06);
+  71   1        write_lcd(0x0c);
+  72   1        write_lcd(0x80);
+  73   1        write_lcd(0x01);
+  74   1       
+  75   1      } 
+  76          
+  77           
+  78          
+  79          void gotoxy_lcd(unsigned char col,unsigned char line)
+  80          {
+  81   1              RS = Low;
+  82   1              if (line == 1)
+  83   1                      write_lcd(0x7f+col);
+  84   1              if (line == 2)
+  85   1                      write_lcd(0xbf+col);
+  86   1      }
+  87          
+  88          
+  89          
+  90          void putc_lcd(unsigned char byte)
+  91          {
+  92   1         RS = High;
+  93   1         write_lcd(byte);
+  94   1      }
+  95          
+  96          void print_lcd(char String[])
+  97          {
+  98   1              int i = 0;
+  99   1              do
+ 100   1              {
+ 101   2                      putc_lcd(String[i]);
+ 102   2                      
+ 103   2              i++;
+ 104   2              }
+ 105   1              while(String[i] != '\0');
+ 106   1      }
+ 107          
+ 108          
+ 109          
+ 110          void print_num_lcd(int num)
+ 111          {
+ 112   1              putc_lcd(((num/100) + 0x30));
+ 113   1              num %=100;
+ 114   1              putc_lcd(((num/10) + 0x30));
+ 115   1              putc_lcd(((num%10) + 0x30));
+C51 COMPILER V9.02   LCD4BIT                                                               02/23/2017 18:46:36 PAGE 3   
+
+ 116   1      }
+ 117          
+ 118          
+ 119          
+ 120          
+ 121          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    283    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

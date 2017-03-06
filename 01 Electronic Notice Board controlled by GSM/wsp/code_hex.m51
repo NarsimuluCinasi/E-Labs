@@ -1,0 +1,179 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/31/2015  21:23:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE ..\bin\STARTUP.obj, ..\bin\main.obj TO ..\bin\code_hex PRINT (.\code_hex.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ..\bin\STARTUP.obj (?C_STARTUP)
+  ..\bin\main.obj (MAIN)
+
+
+LINK MAP OF MODULE:  ..\bin\code_hex (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     002AH     UNIT         ?PR?MAIN?MAIN
+            CODE    082AH     0020H     UNIT         ?CO?MAIN
+            CODE    084AH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   ..\bin\code_hex (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?CO?MAIN
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   LCD_CLEAR
+   _DELAY_MS_SET
+   _GOTOXY_LCD
+   _PRINT_LCD
+
+
+
+SYMBOL TABLE OF MODULE:  ..\bin\code_hex (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/31/2015  21:23:51  PAGE 2
+
+
+  -------         MODULE        ?C_STARTUP
+  C:084AH         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:084DH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:084AH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:084AH         LINE#         133
+  C:084CH         LINE#         134
+  C:084DH         LINE#         135
+  C:084EH         LINE#         136
+  C:0850H         LINE#         185
+  C:0853H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  C:0800H         PUBLIC        Main
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:0800H         LINE#         11
+  C:0800H         LINE#         12
+  C:0800H         LINE#         14
+  C:0807H         LINE#         15
+  C:0810H         LINE#         16
+  C:0817H         LINE#         17
+  C:0820H         LINE#         18
+  C:0825H         LINE#         19
+  C:0828H         LINE#         23
+  C:0828H         LINE#         24
+  C:0828H         LINE#         27
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/31/2015  21:23:51  PAGE 3
+
+
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAY_MS_SET
+    MODULE:  ..\bin\main.obj (MAIN)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LCD_CLEAR
+    MODULE:  ..\bin\main.obj (MAIN)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GOTOXY_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINT_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GOTOXY_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 0805H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINT_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 080EH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GOTOXY_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 0815H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINT_LCD
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 081EH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_MS_SET
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 0823H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LCD_CLEAR
+    MODULE:  ..\bin\main.obj (MAIN)
+    ADDRESS: 0826H
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0059H BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=89
+LINK/LOCATE RUN COMPLETE.  10 WARNING(S),  0 ERROR(S)

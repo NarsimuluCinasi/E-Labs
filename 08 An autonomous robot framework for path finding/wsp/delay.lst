@@ -1,0 +1,76 @@
+C51 COMPILER V9.02   DELAY                                                                 03/01/2017 21:31:33 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN ..\bin\delay.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\drv\onchip_drivers\src\delay.c BROWSE INCDIR(..\drv\offchip_drivers\incl
+                    -ude;..\drv\onchip_drivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\delay.lst) OBJECT(..\bin\delay.obj)
+
+line level    source
+
+   1          
+   2          #include<reg52.h>
+   3          #include<delay.h>
+   4          
+   5          /*Delay function is seperatly declared here */
+   6          unsigned int set_delay_temp=0;
+   7          
+   8          int delay_ms(unsigned int msec)
+   9          {
+  10   1      unsigned int x,y;
+  11   1      for(x=0;x<msec;x++)
+  12   1      for(y=0;y<1000;y++);
+  13   1      return 0;
+  14   1      }
+  15          int delay_sec(unsigned char sec)
+  16          {
+  17   1      
+  18   1      set_delay_temp = 1000*sec;
+  19   1      delay_ms(set_delay_temp);
+  20   1      return 0;
+  21   1      }
+  22          
+  23          int delay_min(unsigned char min)
+  24          {
+  25   1      set_delay_temp = 60*min;
+  26   1      delay_sec(set_delay_temp);
+  27   1      return 0;
+  28   1      }
+  29          void delay_us(void)
+  30          {
+  31   1      
+  32   1      TMOD = 0x01;
+  33   1      TH0 = 0xFF;
+  34   1      TL0 = 0xF6;
+  35   1      TR0 = 1;
+  36   1      while(TF0==0);
+  37   1      TR0 = 0;
+  38   1      TF0 = 0;
+  39   1      
+  40   1      }
+  41          
+  42            void T1M1Delay(void)    // for time delay
+  43          {
+  44   1        TH1=0xFF;
+  45   1        TL1=0xFE;
+  46   1        TR1=1;
+  47   1        while(TF1==0);
+  48   1        TR1=0;
+  49   1        TF1=0;
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    108    ----
+C51 COMPILER V9.02   DELAY                                                                 03/01/2017 21:31:33 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

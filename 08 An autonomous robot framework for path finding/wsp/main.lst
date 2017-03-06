@@ -1,0 +1,202 @@
+C51 COMPILER V9.02   MAIN                                                                  03/01/2017 21:31:32 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN ..\bin\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\app\main.c BROWSE INCDIR(..\drv\offchip_drivers\include;..\drv\onchip_dr
+                    -ivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\main.lst) OBJECT(..\bin\main.obj)
+
+line level    source
+
+   1          
+   2          /*Defining all Header files */
+   3          
+   4          #include<reg52.h>
+   5          #include<lcd4bit.h>
+   6          #include<delay.h>
+   7          
+   8          #include <motor_control.h>
+   9          
+  10              
+  11          
+  12          sfr16 DPTR =0x82;
+  13          sbit trig=P3^5;                    // conect with trigger pin
+  14          sbit echo=P3^2;                // connect with echo pin
+  15          
+  16          #define IN 1
+  17          #define OUT 0
+  18          
+  19          #define OFF 0
+  20          #define ON 1
+  21          
+  22          sbit BUZZER = P0^1;
+  23          sbit M00 = P0^4;
+  24          sbit M01 = P0^5;
+  25          sbit M10 = P0^6;
+  26          sbit M11 = P0^7;
+  27          
+  28          unsigned int a,b;
+  29          unsigned int dis=0;
+  30          
+  31          
+  32          
+  33          /*Program in AT89S52 will starts executes from here */
+  34          
+  35          
+  36          
+  37          
+  38          void Main()
+  39          {
+  40   1      
+  41   1              BUZZER = OUT;
+  42   1      
+  43   1      
+  44   1                      bot_Init();
+  45   1              lcd_clear();
+  46   1      
+  47   1              gotoxy_lcd(1, 1);
+  48   1              print_lcd("Autonomous Robot");
+  49   1              gotoxy_lcd(1, 2);
+  50   1              print_lcd("For Path Finding");
+  51   1              
+  52   1              delay_sec(1);
+  53   1              lcd_clear();
+  54   1      
+C51 COMPILER V9.02   MAIN                                                                  03/01/2017 21:31:32 PAGE 2   
+
+  55   1              
+  56   1              BUZZER = OFF;
+  57   1              init_lcd();
+  58   1              gotoxy_lcd(1, 1);
+  59   1              print_lcd("OBSTACLE ROBOT ");
+  60   1              
+  61   1              delay_sec(1);
+  62   1              
+  63   1              
+  64   1              
+  65   1              while(1)
+  66   1              {
+  67   2                         TMOD=0x19; 
+  68   2          {
+  69   3          TH0=0;
+  70   3          TL0=0;
+  71   3          TR0=1;                    // T0 intiallization 
+  72   3      
+  73   3          for(b=0; b<6000; b++)
+  74   3              {
+  75   4           T1M1Delay();
+  76   4              }
+  77   3                 
+  78   3              trig=1;
+  79   3      
+  80   3              for(a=0; a<10; a++)
+  81   3              {
+  82   4          T1M1Delay();
+  83   4              }
+  84   3      
+  85   3              trig=0;
+  86   3      
+  87   3          while(INT0==0);
+  88   3          while(INT0==1);      // when echo pin recieve the echo sound or reflacted sound T0 will be stop
+  89   3      
+  90   3             
+  91   3          DPH=TH0;                             // shifting the value of TH0 in DPH
+  92   3          DPL=TL0;                            // shifting the value of TH0 in DPL
+  93   3             
+  94   3              if(DPTR<35000)             //actually you need to use 38000 but the sensor may not work at higher levels 
+  95   3               {
+  96   4                      dis=DPTR/64;              // for meausring distance in cm, where rfl is actual distance from the sensor 
+  97   4               }
+  98   3      
+  99   3                        if(dis<30)
+ 100   3                        {
+ 101   4      
+ 102   4                              BUZZER = ON;
+ 103   4      
+ 104   4      
+ 105   4                              M00 = ON;
+ 106   4                              M01 = OFF;
+ 107   4                              M10 = OFF;
+ 108   4                              M11 = OFF;
+ 109   4      
+ 110   4                              gotoxy_lcd(1, 2);
+ 111   4                              print_lcd("OBSTECLE DETECTED");
+ 112   4                              delay_ms(250);
+ 113   4                        }
+ 114   3                        else
+ 115   3                        {
+ 116   4                                      lcd_clear();
+C51 COMPILER V9.02   MAIN                                                                  03/01/2017 21:31:32 PAGE 3   
+
+ 117   4                      bot_MoveForward();      
+ 118   4                      gotoxy_lcd(1, 1);
+ 119   4                      print_lcd("Moving FORWARD...  ");
+ 120   4                      delay_sec(2);
+ 121   4      
+ 122   4                      bot_MoveForwardLeft();
+ 123   4                      gotoxy_lcd(1, 1);
+ 124   4                      print_lcd("Moving Left...    ");
+ 125   4                      delay_ms(500);
+ 126   4      
+ 127   4                      bot_MoveForward();
+ 128   4                      gotoxy_lcd(1, 1);
+ 129   4                      print_lcd("Moving Forward...");
+ 130   4                      delay_ms(2000);
+ 131   4      
+ 132   4                      bot_MoveForwardRight();
+ 133   4                      gotoxy_lcd(1, 1);
+ 134   4                      print_lcd("Moving Right...  ");
+ 135   4                      delay_ms(200);
+ 136   4      
+ 137   4                      bot_MoveForward();
+ 138   4                      gotoxy_lcd(1, 1);
+ 139   4                      print_lcd("Moving Forward...");
+ 140   4                      delay_ms(2000);
+ 141   4      
+ 142   4                      bot_Stop();
+ 143   4                      gotoxy_lcd(1, 1);
+ 144   4                      print_lcd("BOT Stopped.....    ");
+ 145   4                      delay_ms(2000);
+ 146   4                      
+ 147   4                      bot_MoveBackward();
+ 148   4                      gotoxy_lcd(1, 1);
+ 149   4                      print_lcd("MOVING BACKWORD... ");
+ 150   4                      delay_ms(2000);
+ 151   4      
+ 152   4                      bot_MoveBackwardRight();
+ 153   4                      gotoxy_lcd(1, 1);
+ 154   4                      print_lcd("BACK RIGHT..... ");
+ 155   4                      delay_ms(500);
+ 156   4      
+ 157   4                        }
+ 158   3      
+ 159   3                      TR0=0;
+ 160   3                      TF0=0;
+ 161   3                      
+ 162   3              
+ 163   3              }
+ 164   2      
+ 165   2      
+ 166   2      }
+ 167   1      }
+ 168          
+ 169          
+ 170          
+ 171          
+ 172          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    445    ----
+   CONSTANT SIZE    =    201    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.02   MAIN                                                                  03/01/2017 21:31:32 PAGE 4   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
