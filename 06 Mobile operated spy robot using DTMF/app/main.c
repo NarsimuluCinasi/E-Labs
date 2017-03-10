@@ -46,25 +46,23 @@ void main()
 	{
 
 			
-			if(DTMF_D0 == 1)
+			if(DTMF_D2 ==0 && DTMF_D1 == 0 && DTMF_D0 == 1)
 			{
-				dtmf_data |= 1;	 
-			}
+				dtmf_data = 1;	 
+			}					  
 
-			 if(DTMF_D1 == 1)
+			else if(DTMF_D2 ==0 && DTMF_D1 == 1 && DTMF_D0 == 0)
 			{
-				dtmf_data |= 1<<1;	 
+				dtmf_data = 2;	 
 			}
-			if(DTMF_D2 == 1)
+			else if(DTMF_D2 ==0 && DTMF_D1 == 1 && DTMF_D0 == 1)
 			{
-				dtmf_data |= 1<<2;	 
+				dtmf_data = 3;	 
 			}
-		   	if(DTMF_D3 == 1)
+		   	else if(DTMF_D2 ==1 && DTMF_D1 ==0  && DTMF_D0 == 0)
 			{
-				dtmf_data |= 1<<3;	 
+				dtmf_data = 4;	 
 			}
-
-			dtmf_data &= 0x0F;
 	
 
 		if(dtmf_data == 1)
