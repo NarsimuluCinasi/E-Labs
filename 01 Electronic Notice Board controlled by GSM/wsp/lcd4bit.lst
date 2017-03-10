@@ -1,4 +1,4 @@
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 15:21:12 PAGE 1   
+C51 COMPILER V9.02   LCD4BIT                                                               02/25/2017 02:34:36 PAGE 1   
 
 
 C51 COMPILER V9.02, COMPILATION OF MODULE LCD4BIT
@@ -62,7 +62,7 @@ line level    source
   51          
   52          void lcd_clear(void)
   53          {
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 15:21:12 PAGE 2   
+C51 COMPILER V9.02   LCD4BIT                                                               02/25/2017 02:34:36 PAGE 2   
 
   54   1      RS = Low;
   55   1      write_lcd(0x01);
@@ -126,7 +126,7 @@ line level    source
  113   1              {
  114   2                      putc_lcd(String[i]);
  115   2                      
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 15:21:12 PAGE 3   
+C51 COMPILER V9.02   LCD4BIT                                                               02/25/2017 02:34:36 PAGE 3   
 
  116   2              i++;
  117   2              }

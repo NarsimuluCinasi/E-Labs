@@ -12,7 +12,6 @@ sbit M11 = P0^3;
 	M01 = 0;
 	M10 = 0;
 	M11 = 0;
-	bot_Stop();
  }
  void bot_Start(void)
  {

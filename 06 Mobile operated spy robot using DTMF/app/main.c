@@ -46,13 +46,11 @@ void main()
 	{
 
 			
-			if(DTMF_D0 == 1 || DTMF_D1 == 1 || DTMF_D1 == 1 || DTMF_D1 == 1)
-			{
-			
-			if(DTMF_D1 == 1)
+			if(DTMF_D0 == 1)
 			{
 				dtmf_data |= 1;	 
 			}
+
 			 if(DTMF_D1 == 1)
 			{
 				dtmf_data |= 1<<1;	 
@@ -65,9 +63,8 @@ void main()
 			{
 				dtmf_data |= 1<<3;	 
 			}
-			 	dtmf_data &= 0x0F;
-			}
-		
+
+			dtmf_data &= 0x0F;
 	
 
 		if(dtmf_data == 1)
@@ -97,12 +94,7 @@ void main()
 			gotoxy_lcd(1, 1);
 			print_lcd("Moving Right...  ");
 		}
-	   	else if(dtmf_data == 5)
-		{
-			bot_MoveBackward();
-			gotoxy_lcd(1, 1);
-			print_lcd("Bot Stopped...  ");
-		}
+
 	   	else
 		{
 			bot_Stop();

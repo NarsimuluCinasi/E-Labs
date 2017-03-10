@@ -1,201 +1,109 @@
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 19:37:35 PAGE 1   
+C51 COMPILER V9.02   MAIN                                                                  03/02/2015 22:33:10 PAGE 1   
 
 
 C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN ..\bin\main.obj
 COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\app\main.c BROWSE INCDIR(..\drv\offchip_drivers\include;..\drv\onchip_dr
-                    -ivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\main.lst) OBJECT(..\bin\main.obj)
+                    -ivers\include;..\app\include) DEBUG OBJECTEXTEND PRINT(.\main.lst) OBJECT(..\bin\main.obj)
 
 line level    source
 
    1          
    2          /*Defining all Header files */
    3          
-   4          #include <reg52.h>
-   5          #include <lcd4bit.h>
-   6          #include <delay.h>
-   7          #include <adc.h>
-   8          #include <uart.h>
-   9          
-  10          #define IN 1
-  11          #define OUT 0
-  12          #define OFF 0
-  13          #define ON 1
-  14          
-  15          #define MOBILE_SMS "AT+CMGS=\"+919666333695\""
-  16          
-  17          sbit BUZZER = P1^0;
+   4          #include<reg52.h>
+   5          #include<lcd4bit.h>
+   6          #include<delay.h>
+   7          #include<adc.h>
+   8          
+   9          #define IN 1
+  10          #define OUT 0
+  11          #define OFF 0
+  12          #define ON 1
+  13          
+  14          sbit BUZZER=P1^0;
+  15          sbit M0=P1^1;
+  16          sbit SMK=P3^0;
+  17          
   18          
-  19          
+  19          unsigned char  smoke = 0;
   20          
-  21          unsigned char axisx, axisy, axisz, body_temp, heartrate;
+  21          
   22          
-  23          
+  23          /*Program in AT89S52 will starts executes from here */
   24          
-  25          /*Program in AT89S52 will starts executes from here */
+  25          
   26          
   27          
-  28          
-  29          
-  30          void Main()
-  31          {
-  32   1      
-  33   1              init_lcd();
-  34   1              adc_0808Init();
-  35   1              lcd_clear();
-  36   1              
-  37   1      
-  38   1              gotoxy_lcd(1, 1);
-  39   1              print_lcd("Elder people caring");
-  40   1              gotoxy_lcd(1, 2);
-  41   1              print_lcd("using sensor network");
-  42   1              
-  43   1              delay_sec(1);
-  44   1      
-  45   1                      init_UART();
-  46   1              lcd_clear();
-  47   1                      
-  48   1              print_lcd("Initilizing GSM.....");
-  49   1              transmit_UARTDataString("AT"); delay_ms(50);
-  50   1              transmit_UARTDataByte(0X0D);
-  51   1      
-  52   1              while(receive_UARTDataByte() != 'O');
-  53   1              while(receive_UARTDataByte() != 'K');
-  54   1              
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 19:37:35 PAGE 2   
+  28          void Main()
+  29          {
+  30   1      
+  31   1      
+  32   1              init_lcd();
+  33   1              adc_init();
+  34   1              lcd_clear();
+  35   1              BUZZER = OUT;
+  36   1              M0 = OUT;
+  37   1              SMK = IN;
+  38   1      
+  39   1              SMK = 0;
+  40   1              
+  41   1              BUZZER = ON;
+  42   1              M0 = ON;
+  43   1              gotoxy_lcd(1, 1);
+  44   1              print_lcd("  SMOKE DETECTOR ");
+  45   1      
+  46   1              
+  47   1              delay_sec(1);
+  48   1              lcd_clear();
+  49   1              delay_ms(250);
+  50   1              BUZZER = OFF;
+  51   1              M0 = OFF;
+  52   1              gotoxy_lcd(1, 1);
+  53   1              print_lcd("SMOKE:   PPM");
+  54   1              gotoxy_lcd(1, 2);
+C51 COMPILER V9.02   MAIN                                                                  03/02/2015 22:33:10 PAGE 2   
 
-  55   1              lcd_clear();
-  56   1              print_lcd("MODEM AT OK ....");
-  57   1      
-  58   1              transmit_UARTDataString("ATE0");
-  59   1              transmit_UARTDataByte(0X0D);
-  60   1              while(receive_UARTDataByte() != 'O');
-  61   1              while(receive_UARTDataByte() != 'K');
-  62   1              lcd_clear();
-  63   1              print_lcd("MODEM ECHO OFF....");
-  64   1      
-  65   1              lcd_clear();
-  66   1              print_lcd("Checking GSM Network");
-  67   1              delay_ms(250);
-  68   1              transmit_UARTDataString("AT+CPIN?"); delay_ms(100);transmit_UARTDataByte(0X0D);
-  69   1              
-  70   1                      while(receive_UARTDataByte() != 'R');
-  71   1                      while(receive_UARTDataByte() != 'E');
-  72   1                      while(receive_UARTDataByte() != 'A');
-  73   1                      while(receive_UARTDataByte() != 'D');
-  74   1                      while(receive_UARTDataByte() != 'Y');
-  75   1      
-  76   1              lcd_clear();
-  77   1                      print_lcd("MODEM CPIN OK ......");
-  78   1      
-  79   1                      transmit_UARTDataString("AT+CMGD=1");delay_ms(100);     transmit_UARTDataByte(0X0D);
-  80   1                      while(receive_UARTDataByte() != 'O');
-  81   1                      while(receive_UARTDataByte() != 'K');
-  82   1      
-  83   1              lcd_clear();
-  84   1                      print_lcd("SMS TEXTM OK ...... ");
+  55   1              print_lcd("BUZZER:");
+  56   1              
+  57   1              
+  58   1              while(1)
+  59   1              {
+  60   2                      
+  61   2                      
+  62   2                      smoke = adc_read(0,0,0);
+  63   2                      
+  64   2                      gotoxy_lcd(7, 1);
+  65   2                      print_num_lcd(smoke);
+  66   2                      
+  67   2                      if(smoke>80 || SMK==1)
+  68   2                      {
+  69   3                              
+  70   3                              BUZZER = ON; 
+  71   3                              M0 = ON;
+  72   3                              gotoxy_lcd(8, 2);
+  73   3                              print_lcd("ON ");
+  74   3                              delay_ms(250);
+  75   3                              
+  76   3                      }
+  77   2                      else
+  78   2                      {
+  79   3                              BUZZER = OFF;
+  80   3                              M0 = OFF;
+  81   3                                      gotoxy_lcd(8, 2);
+  82   3                                      print_lcd("OFF");
+  83   3                      }
+  84   2         }
   85   1      
-  86   1                      transmit_UARTDataString(MOBILE_SMS);  delay_ms(50);     transmit_UARTDataByte(0X0D);
-  87   1                      while(receive_UARTDataByte() != '>');
-  88   1                      transmit_UARTDataString("GSM MODULE TEST SMS");delay_ms(100);
-  89   1                      transmit_UARTDataByte(0X1A);
-  90   1                      while(receive_UARTDataByte() != 'O');
-  91   1                      while(receive_UARTDataByte() != 'K');
-  92   1                      print_lcd("SMS TEST OK .....");
-  93   1                      delay_ms(100);
-  94   1      
-  95   1      lcd_clear();
-  96   1              
-  97   1              while(1)
-  98   1              {
-  99   2                      
- 100   2                      
- 101   2                      axisx = adc_0808GetChannelData(0);
- 102   2                      axisy = adc_0808GetChannelData(1);
- 103   2                      axisz = adc_0808GetChannelData(2);
- 104   2                      body_temp = adc_0808GetChannelData(3);
- 105   2                      heartrate = adc_0808GetChannelData(4);
- 106   2                      
- 107   2                      gotoxy_lcd(1, 1);
- 108   2      //              print_num_lcd(axisx); delay_ms(500);
- 109   2                      if(axisx>80 || axisy>80 || axisz>80)
- 110   2                      {
- 111   3                              
- 112   3              
- 113   3                               
- 114   3                              lcd_clear();
- 115   3                              gotoxy_lcd(1, 1);
- 116   3                              print_lcd("Person Fallen");             delay_ms(500);
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 19:37:35 PAGE 3   
-
- 117   3      
- 118   3                                              transmit_UARTDataString(MOBILE_SMS);  delay_ms(50);     transmit_UARTDataByte(0X0D);
- 119   3                      while(receive_UARTDataByte() != '>');
- 120   3                      transmit_UARTDataString("PERSON FALLEN");delay_ms(100);
- 121   3                      transmit_UARTDataByte(0X1A);
- 122   3                      while(receive_UARTDataByte() != 'O');
- 123   3                      while(receive_UARTDataByte() != 'K'); lcd_clear(); print_lcd("SMS Sent ...");           delay_ms(500);
- 124   3                              
- 125   3                      }
- 126   2                      else if(body_temp > 20)
- 127   2                      {
- 128   3                              
- 129   3                      
- 130   3                               
- 131   3                              lcd_clear();
- 132   3                              gotoxy_lcd(1, 1);
- 133   3                              print_lcd("Person body");
- 134   3                              gotoxy_lcd(1, 2);
- 135   3                              print_lcd("Temperature Increased");
- 136   3                              delay_ms(500);
- 137   3      
- 138   3                                              transmit_UARTDataString(MOBILE_SMS);  delay_ms(50);     transmit_UARTDataByte(0X0D);
- 139   3                      while(receive_UARTDataByte() != '>');
- 140   3                      transmit_UARTDataString("PERSON BODY Temperature increased");delay_ms(100);
- 141   3                      transmit_UARTDataByte(0X1A);
- 142   3                      while(receive_UARTDataByte() != 'O');
- 143   3                      while(receive_UARTDataByte() != 'K'); lcd_clear(); print_lcd("SMS Sent ...");           delay_ms(500);
- 144   3                              
- 145   3                      }
- 146   2                      else if(heartrate > 80)
- 147   2                      {
- 148   3                              lcd_clear();
- 149   3                              gotoxy_lcd(1, 1);
- 150   3                              print_lcd("Person Heart rate");
- 151   3                              gotoxy_lcd(1, 2);
- 152   3                              print_lcd(" Increased");
- 153   3                              delay_ms(500);
- 154   3      
- 155   3                                              transmit_UARTDataString(MOBILE_SMS);  delay_ms(50);     transmit_UARTDataByte(0X0D);
- 156   3                      while(receive_UARTDataByte() != '>');
- 157   3                      transmit_UARTDataString("Person Heart Rate increased");delay_ms(100);
- 158   3                      transmit_UARTDataByte(0X1A);
- 159   3                      while(receive_UARTDataByte() != 'O');
- 160   3                      while(receive_UARTDataByte() != 'K');           lcd_clear(); print_lcd("SMS Sent ...");         delay_ms(500);
- 161   3                              
- 162   3                      }
- 163   2                      else
- 164   2                      {
- 165   3                              BUZZER = OFF;
- 166   3                              
- 167   3                              gotoxy_lcd(1, 1);
- 168   3                                      lcd_clear();print_lcd("Normal .....");
- 169   3                              gotoxy_lcd(1, 2);
- 170   3                              delay_ms(500);
- 171   3                      }
- 172   2         }
- 173   1      
- 174   1      }
+  86   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    780    ----
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 19:37:35 PAGE 4   
-
-   CONSTANT SIZE    =    429    ----
+   CODE SIZE        =    172    ----
+   CONSTANT SIZE    =     47    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      5    ----
+   DATA SIZE        =      1    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

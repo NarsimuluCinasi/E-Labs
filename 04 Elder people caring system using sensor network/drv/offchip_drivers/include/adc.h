@@ -1,4 +1,5 @@
 
 
-unsigned char adc_0808GetChannelData(unsigned char adc_channel);
-void adc_0808Init(void);
+
+unsigned char adc_read(unsigned char, unsigned char, unsigned char);
+void adc_init(void);

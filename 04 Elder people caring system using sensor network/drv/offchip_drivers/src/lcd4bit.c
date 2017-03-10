@@ -15,14 +15,14 @@ sbit D1 = P1^5;
 sbit D2 = P1^6;
 sbit D3 = P1^7;
 
-void delay_lcd (void)
-{
-	int del1,del2;
-  	for(del1=0;del1<10;del1++)
-  	{		    
-    	for(del2=0;del2<200;del2++);
-  	}
-}
+//void delay_lcd (void)
+//{
+//	int del1,del2;
+//  	for(del1=0;del1<10;del1++)
+//  	{		    
+//    	for(del2=0;del2<200;del2++);
+//  	}
+//}
 
 
 void write_nibble_lcd(unsigned char Val)

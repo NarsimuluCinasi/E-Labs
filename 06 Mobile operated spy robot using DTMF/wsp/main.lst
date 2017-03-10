@@ -1,4 +1,4 @@
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 11:05:14 PAGE 1   
+C51 COMPILER V9.02   MAIN                                                                  02/23/2017 16:19:44 PAGE 1   
 
 
 C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
@@ -56,86 +56,78 @@ line level    source
   46   1              {
   47   2      
   48   2                              
-  49   2                              if(DTMF_D0 == 1 || DTMF_D1 == 1 || DTMF_D1 == 1 || DTMF_D1 == 1)
+  49   2                              if(DTMF_D0 == 1)
   50   2                              {
-  51   3                              
-  52   3                              if(DTMF_D1 == 1)
-  53   3                              {
-  54   4                                      dtmf_data |= 1;  
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 11:05:14 PAGE 2   
+  51   3                                      dtmf_data |= 1;  
+  52   3                              }
+  53   2      
+  54   2                               if(DTMF_D1 == 1)
+C51 COMPILER V9.02   MAIN                                                                  02/23/2017 16:19:44 PAGE 2   
 
-  55   4                              }
-  56   3                               if(DTMF_D1 == 1)
-  57   3                              {
-  58   4                                      dtmf_data |= 1<<1;       
-  59   4                              }
-  60   3                              if(DTMF_D2 == 1)
-  61   3                              {
-  62   4                                      dtmf_data |= 1<<2;       
-  63   4                              }
-  64   3                              if(DTMF_D3 == 1)
-  65   3                              {
-  66   4                                      dtmf_data |= 1<<3;       
-  67   4                              }
-  68   3                                      dtmf_data &= 0x0F;
-  69   3                              }
-  70   2                      
-  71   2              
-  72   2      
-  73   2                      if(dtmf_data == 1)
-  74   2                      {
-  75   3                              bot_MoveForward();      
-  76   3                              gotoxy_lcd(1, 1);
-  77   3                              print_lcd("Moving FORWARD...  ");
-  78   3                      }
-  79   2      
-  80   2                      else if(dtmf_data == 2)
-  81   2                      {
-  82   3                              bot_MoveForwardLeft();
-  83   3                              gotoxy_lcd(1, 1);
-  84   3                              print_lcd("Moving Left...    ");
-  85   3                      }
-  86   2      
-  87   2                      else if(dtmf_data == 3)
-  88   2                      {
-  89   3                              bot_MoveForwardRight();
-  90   3                              gotoxy_lcd(1, 1);
-  91   3                              print_lcd("Moving Right...  ");
-  92   3                      }
-  93   2      
-  94   2                      else if(dtmf_data == 4)
-  95   2                      {
-  96   3                              bot_MoveBackward();
-  97   3                              gotoxy_lcd(1, 1);
-  98   3                              print_lcd("Moving Right...  ");
-  99   3                      }
- 100   2                      else if(dtmf_data == 5)
- 101   2                      {
- 102   3                              bot_MoveBackward();
- 103   3                              gotoxy_lcd(1, 1);
- 104   3                              print_lcd("Bot Stopped...  ");
- 105   3                      }
- 106   2                      else
- 107   2                      {
- 108   3                              bot_Stop();
- 109   3                              gotoxy_lcd(1, 1);
- 110   3                              print_lcd("BOT Stopped.....    ");
- 111   3                      }
- 112   2              
- 113   2              }
- 114   1      }
+  55   2                              {
+  56   3                                      dtmf_data |= 1<<1;       
+  57   3                              }
+  58   2                              if(DTMF_D2 == 1)
+  59   2                              {
+  60   3                                      dtmf_data |= 1<<2;       
+  61   3                              }
+  62   2                              if(DTMF_D3 == 1)
+  63   2                              {
+  64   3                                      dtmf_data |= 1<<3;       
+  65   3                              }
+  66   2      
+  67   2                              dtmf_data &= 0x0F;
+  68   2              
+  69   2      
+  70   2                      if(dtmf_data == 1)
+  71   2                      {
+  72   3                              bot_MoveForward();      
+  73   3                              gotoxy_lcd(1, 1);
+  74   3                              print_lcd("Moving FORWARD...  ");
+  75   3                      }
+  76   2      
+  77   2                      else if(dtmf_data == 2)
+  78   2                      {
+  79   3                              bot_MoveForwardLeft();
+  80   3                              gotoxy_lcd(1, 1);
+  81   3                              print_lcd("Moving Left...    ");
+  82   3                      }
+  83   2      
+  84   2                      else if(dtmf_data == 3)
+  85   2                      {
+  86   3                              bot_MoveForwardRight();
+  87   3                              gotoxy_lcd(1, 1);
+  88   3                              print_lcd("Moving Right...  ");
+  89   3                      }
+  90   2      
+  91   2                      else if(dtmf_data == 4)
+  92   2                      {
+  93   3                              bot_MoveBackward();
+  94   3                              gotoxy_lcd(1, 1);
+  95   3                              print_lcd("Moving Right...  ");
+  96   3                      }
+  97   2      
+  98   2                      else
+  99   2                      {
+ 100   3                              bot_Stop();
+ 101   3                              gotoxy_lcd(1, 1);
+ 102   3                              print_lcd("BOT Stopped.....    ");
+ 103   3                      }
+ 104   2              
+ 105   2              }
+ 106   1      }
 
-
-C51 COMPILER V9.02   MAIN                                                                  03/01/2017 11:05:14 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    239    ----
-   CONSTANT SIZE    =    126    ----
+   CODE SIZE        =    203    ----
+   CONSTANT SIZE    =    109    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      1    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
+C51 COMPILER V9.02   MAIN                                                                  02/23/2017 16:19:44 PAGE 3   
+
 END OF MODULE INFORMATION.
 
 

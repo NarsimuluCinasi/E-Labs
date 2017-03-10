@@ -7,8 +7,8 @@
 #define Low 0
 
 
-sbit RS = P1^2;
-sbit En = P1^3;
+sbit RS = P1^0;
+sbit En = P1^1;
 sbit D0 = P1^4;
 sbit D1 = P1^5;
 sbit D2 = P1^6;
@@ -63,12 +63,13 @@ delay_lcd();delay_lcd();
 void init_lcd(void)
 {
   RS = Low;
-  write_nibble_lcd(0x03);	delay_lcd();
-  write_nibble_lcd(0x03);	delay_lcd();
-  write_nibble_lcd(0x02);	delay_lcd();
+//  write_nibble_lcd(0x03);	delay_lcd();
+//  write_nibble_lcd(0x03);	delay_lcd();
+  write_lcd(0x02);
   write_lcd(0x28);
   write_lcd(0x06);
   write_lcd(0x0c);
+  write_lcd(0x80);
   write_lcd(0x01);
  
 } 
@@ -105,30 +106,13 @@ void print_lcd(char String[])
 }
 
 
+
 void print_num_lcd(int num)
 {
-	int sum=0,l=0;
-
-	if(num==0)
-		putc_lcd('0');
-	else
-	{
-	while(num)
-	{
-		sum=(sum*10)+(num%10);
-		if((num%10)==0)
-			l++;
-		num/=10;
-	}
-	while(sum)
-	{
-		putc_lcd((sum%10)+48);
-		sum/=10;
-	}
-
-	while(l--)
-	putc_lcd('0');
-}
+	putc_lcd(((num/100) + 0x30));
+	num %=100;
+	putc_lcd(((num/10) + 0x30));
+	putc_lcd(((num%10) + 0x30));
 }
 
 

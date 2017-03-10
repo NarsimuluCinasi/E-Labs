@@ -2,7 +2,6 @@
 "..\bin\main.obj",
 "..\bin\lcd4bit.obj",
 "..\bin\adc.obj",
-"..\bin\delay.obj",
-"..\bin\uart.obj" 
+"..\bin\delay.obj" 
 TO "..\bin\code_burn" 
 PRINT(".\code_burn.m51") RAMSIZE(256) 

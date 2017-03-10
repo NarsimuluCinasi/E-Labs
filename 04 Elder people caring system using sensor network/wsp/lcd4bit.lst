@@ -1,11 +1,10 @@
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 19:37:36 PAGE 1   
+C51 COMPILER V9.02   LCD4BIT                                                               03/02/2015 22:33:10 PAGE 1   
 
 
 C51 COMPILER V9.02, COMPILATION OF MODULE LCD4BIT
 OBJECT MODULE PLACED IN ..\bin\lcd4bit.obj
 COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\drv\offchip_drivers\src\lcd4bit.c BROWSE INCDIR(..\drv\offchip_drivers\i
-                    -nclude;..\drv\onchip_drivers\include;..\app\include;..\drv) DEBUG OBJECTEXTEND PRINT(.\lcd4bit.lst) OBJECT(..\bin\lcd4bi
-                    -t.obj)
+                    -nclude;..\drv\onchip_drivers\include;..\app\include) DEBUG OBJECTEXTEND PRINT(.\lcd4bit.lst) OBJECT(..\bin\lcd4bit.obj)
 
 line level    source
 
@@ -17,124 +16,123 @@ line level    source
    6          #define High 1
    7          #define Low 0
    8          
-   9          static lcd_timer;
-  10          
-  11          sbit RS = P1^0;
-  12          sbit En = P1^1;
-  13          sbit D0 = P1^4;
-  14          sbit D1 = P1^5;
-  15          sbit D2 = P1^6;
-  16          sbit D3 = P1^7;
-  17          
-  18          void delay_lcd (void)
-  19          {
-  20   1              int del1,del2;
-  21   1              for(del1=0;del1<10;del1++)
-  22   1              {                   
-  23   2              for(del2=0;del2<200;del2++);
-  24   2              }
-  25   1      }
+   9          
+  10          sbit RS = P1^2;
+  11          sbit En = P1^3;
+  12          sbit D0 = P1^4;
+  13          sbit D1 = P1^5;
+  14          sbit D2 = P1^6;
+  15          sbit D3 = P1^7;
+  16          
+  17          void delay_lcd (void)
+  18          {
+  19   1              int del1,del2;
+  20   1              for(del1=0;del1<10;del1++)
+  21   1              {
+  22   2              for(del2=0;del2<200;del2++);
+  23   2              }
+  24   1      }
+  25          
   26          
-  27          
-  28          void write_nibble_lcd(unsigned char Val)
-  29          {
-  30   1              En = High;
-  31   1              D0 = D1 = D2 = D3 = 0;
-  32   1              if(Val & 0x01)
-  33   1                      D0 = 1;
-  34   1              if(Val & 0x02)
-  35   1                      D1 = 1;
-  36   1              if(Val & 0x04)
-  37   1                      D2 = 1;
-  38   1              if(Val & 0x08)
-  39   1                      D3 = 1;
-  40   1              En = Low;
-  41   1      }
+  27          void write_nibble_lcd(unsigned char Val)
+  28          {
+  29   1              En = High;
+  30   1              D0 = D1 = D2 = D3 = 0;
+  31   1              if(Val & 0x01)
+  32   1                      D0 = 1;
+  33   1              if(Val & 0x02)
+  34   1                      D1 = 1;
+  35   1              if(Val & 0x04)
+  36   1                      D2 = 1;
+  37   1              if(Val & 0x08)
+  38   1                      D3 = 1;
+  39   1              En = Low;
+  40   1      }
+  41          
   42          
-  43          
-  44          void write_lcd(unsigned char Val)
-  45          {
-  46   1              write_nibble_lcd(Val >> 4);
-  47   1              write_nibble_lcd(Val);
-  48   1              delay_lcd();
-  49   1      }
+  43          void write_lcd(unsigned char Val)
+  44          {
+  45   1              write_nibble_lcd(Val >> 4);
+  46   1              write_nibble_lcd(Val);
+  47   1              delay_lcd();
+  48   1      }
+  49          
   50          
   51          
-  52          
-  53          void lcd_clear(void)
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 19:37:36 PAGE 2   
+  52          void lcd_clear(void)
+  53          {
+  54   1      RS = Low;
+C51 COMPILER V9.02   LCD4BIT                                                               03/02/2015 22:33:10 PAGE 2   
 
-  54          {
-  55   1      RS = Low;
+  55   1      write_lcd(0x01);
   56   1      write_lcd(0x01);
-  57   1      write_lcd(0x01);
-  58   1      delay_lcd();delay_lcd();
-  59   1      
-  60   1      }
+  57   1      delay_lcd();delay_lcd();
+  58   1      
+  59   1      }
+  60          
   61          
   62          
-  63          
-  64          void init_lcd(void)
-  65          {
-  66   1        RS = Low;
+  63          void init_lcd(void)
+  64          {
+  65   1        RS = Low;
+  66   1        write_nibble_lcd(0x03);       delay_lcd();
   67   1        write_nibble_lcd(0x03);       delay_lcd();
-  68   1        write_nibble_lcd(0x03);       delay_lcd();
-  69   1        write_nibble_lcd(0x02);       delay_lcd();
-  70   1        write_lcd(0x28);
-  71   1        write_lcd(0x06);
-  72   1        write_lcd(0x0c);
-  73   1        write_lcd(0x01);
-  74   1       
-  75   1      } 
-  76          
-  77           
-  78          
-  79          void gotoxy_lcd(unsigned char col,unsigned char line)
-  80          {
-  81   1              RS = Low;
-  82   1              if (line == 1)
-  83   1                      write_lcd(0x7f+col);
-  84   1              if (line == 2)
-  85   1                      write_lcd(0xbf+col);
-  86   1      }
+  68   1        write_nibble_lcd(0x02);       delay_lcd();
+  69   1        write_lcd(0x28);
+  70   1        write_lcd(0x06);
+  71   1        write_lcd(0x0c);
+  72   1        write_lcd(0x01);
+  73   1       
+  74   1      } 
+  75          
+  76           
+  77          
+  78          void gotoxy_lcd(unsigned char col,unsigned char line)
+  79          {
+  80   1              RS = Low;
+  81   1              if (line == 1)
+  82   1                      write_lcd(0x7f+col);
+  83   1              if (line == 2)
+  84   1                      write_lcd(0xbf+col);
+  85   1      }
+  86          
   87          
   88          
-  89          
-  90          void putc_lcd(unsigned char byte)
-  91          {
-  92   1         RS = High;
-  93   1         write_lcd(byte);
-  94   1      }
-  95          
-  96          void print_lcd(char String[])
-  97          {
-  98   1              int i = 0;
-  99   1              do
- 100   1              {
- 101   2                      putc_lcd(String[i]);
- 102   2                      
- 103   2              i++;
- 104   2              }
- 105   1              while(String[i] != '\0');
- 106   1      }
+  89          void putc_lcd(unsigned char byte)
+  90          {
+  91   1         RS = High;
+  92   1         write_lcd(byte);
+  93   1      }
+  94          
+  95          void print_lcd(char String[])
+  96          {
+  97   1              int i = 0;
+  98   1              do
+  99   1              {
+ 100   2                      putc_lcd(String[i]);
+ 101   2                      
+ 102   2              i++;
+ 103   2              }
+ 104   1              while(String[i] != '\0');
+ 105   1      }
+ 106          
  107          
  108          
- 109          
- 110          void print_num_lcd(int num)
- 111          {
- 112   1              unsigned int temp;
- 113   1              temp = num/10;
- 114   1              putc_lcd(((num/100) + 0x30));
- 115   1              putc_lcd(((temp%10) + 0x30));
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 19:37:36 PAGE 3   
+ 109          void print_num_lcd(int num)
+ 110          {
+ 111   1              unsigned int temp;
+ 112   1              temp = num/10;
+ 113   1              putc_lcd(((num/100) + 0x30));
+ 114   1              putc_lcd(((temp%10) + 0x30));
+ 115   1              putc_lcd(((num%10) + 0x30));
+ 116   1      }
+C51 COMPILER V9.02   LCD4BIT                                                               03/02/2015 22:33:10 PAGE 3   
 
- 116   1              putc_lcd(((num%10) + 0x30));
- 117   1      }
+ 117          
  118          
  119          
  120          
  121          
- 122          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
@@ -142,7 +140,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      2       7
+   DATA SIZE        =   ----       7
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

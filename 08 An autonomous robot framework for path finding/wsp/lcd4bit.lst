@@ -1,4 +1,4 @@
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 21:31:33 PAGE 1   
+C51 COMPILER V9.02   LCD4BIT                                                               02/22/2017 17:33:10 PAGE 1   
 
 
 C51 COMPILER V9.02, COMPILATION OF MODULE LCD4BIT
@@ -18,8 +18,8 @@ line level    source
    7          #define Low 0
    8          
    9          
-  10          sbit RS = P1^2;
-  11          sbit En = P1^3;
+  10          sbit RS = P1^0;
+  11          sbit En = P1^1;
   12          sbit D0 = P1^4;
   13          sbit D1 = P1^5;
   14          sbit D2 = P1^6;
@@ -62,7 +62,7 @@ line level    source
   51          
   52          void lcd_clear(void)
   53          {
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 21:31:33 PAGE 2   
+C51 COMPILER V9.02   LCD4BIT                                                               02/22/2017 17:33:10 PAGE 2   
 
   54   1      RS = Low;
   55   1      write_lcd(0x01);
@@ -76,88 +76,72 @@ line level    source
   63          void init_lcd(void)
   64          {
   65   1        RS = Low;
-  66   1        write_nibble_lcd(0x03);       delay_lcd();
-  67   1        write_nibble_lcd(0x03);       delay_lcd();
-  68   1        write_nibble_lcd(0x02);       delay_lcd();
+  66   1      //  write_nibble_lcd(0x03);     delay_lcd();
+  67   1      //  write_nibble_lcd(0x03);     delay_lcd();
+  68   1        write_lcd(0x02);
   69   1        write_lcd(0x28);
   70   1        write_lcd(0x06);
   71   1        write_lcd(0x0c);
-  72   1        write_lcd(0x01);
-  73   1       
-  74   1      } 
-  75          
-  76           
-  77          
-  78          void gotoxy_lcd(unsigned char col,unsigned char line)
-  79          {
-  80   1              RS = Low;
-  81   1              if (line == 1)
-  82   1                      write_lcd(0x7f+col);
-  83   1              if (line == 2)
-  84   1                      write_lcd(0xbf+col);
-  85   1      }
-  86          
+  72   1        write_lcd(0x80);
+  73   1        write_lcd(0x01);
+  74   1       
+  75   1      } 
+  76          
+  77           
+  78          
+  79          void gotoxy_lcd(unsigned char col,unsigned char line)
+  80          {
+  81   1              RS = Low;
+  82   1              if (line == 1)
+  83   1                      write_lcd(0x7f+col);
+  84   1              if (line == 2)
+  85   1                      write_lcd(0xbf+col);
+  86   1      }
   87          
   88          
-  89          void putc_lcd(unsigned char byte)
-  90          {
-  91   1         RS = High;
-  92   1         write_lcd(byte);
-  93   1      }
-  94          
-  95          void print_lcd(char String[])
-  96          {
-  97   1              int i = 0;
-  98   1              do
-  99   1              {
- 100   2                      putc_lcd(String[i]);
- 101   2                      
- 102   2              i++;
- 103   2              }
- 104   1              while(String[i] != '\0');
- 105   1      }
- 106          
+  89          
+  90          void putc_lcd(unsigned char byte)
+  91          {
+  92   1         RS = High;
+  93   1         write_lcd(byte);
+  94   1      }
+  95          
+  96          void print_lcd(char String[])
+  97          {
+  98   1              int i = 0;
+  99   1              do
+ 100   1              {
+ 101   2                      putc_lcd(String[i]);
+ 102   2                      
+ 103   2              i++;
+ 104   2              }
+ 105   1              while(String[i] != '\0');
+ 106   1      }
  107          
- 108          void print_num_lcd(int num)
- 109          {
- 110   1              int sum=0,l=0;
- 111   1      
- 112   1              if(num==0)
- 113   1                      putc_lcd('0');
- 114   1              else
- 115   1              {
-C51 COMPILER V9.02   LCD4BIT                                                               03/01/2017 21:31:33 PAGE 3   
+ 108          
+ 109          
+ 110          void print_num_lcd(int num)
+ 111          {
+ 112   1              putc_lcd(((num/100) + 0x30));
+ 113   1              num %=100;
+ 114   1              putc_lcd(((num/10) + 0x30));
+ 115   1              putc_lcd(((num%10) + 0x30));
+C51 COMPILER V9.02   LCD4BIT                                                               02/22/2017 17:33:10 PAGE 3   
 
- 116   2              while(num)
- 117   2              {
- 118   3                      sum=(sum*10)+(num%10);
- 119   3                      if((num%10)==0)
- 120   3                              l++;
- 121   3                      num/=10;
- 122   3              }
- 123   2              while(sum)
- 124   2              {
- 125   3                      putc_lcd((sum%10)+48);
- 126   3                      sum/=10;
- 127   3              }
- 128   2      
- 129   2              while(l--)
- 130   2              putc_lcd('0');
- 131   2      }
- 132   1      }
- 133          
- 134          
- 135          
- 136          
- 137          
+ 116   1      }
+ 117          
+ 118          
+ 119          
+ 120          
+ 121          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    385    ----
+   CODE SIZE        =    283    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       9
+   DATA SIZE        =   ----       5
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

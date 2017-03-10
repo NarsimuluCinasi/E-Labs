@@ -294,7 +294,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\drv\offchip_drivers\include;..\drv\onchip_drivers\include;..\app\include;..\drv</IncludePath>
+              <IncludePath>..\drv\offchip_drivers\include;..\drv\onchip_drivers\include;..\app\include</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -370,11 +370,6 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drv\onchip_drivers\src\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\drv\uart.c</FilePath>
             </File>
           </Files>
         </Group>

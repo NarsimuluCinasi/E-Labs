@@ -24,7 +24,7 @@ void main()
 {
 	char sms_data[80] = {0};
 
-	char i=0, sms_byte=0,count=0, sms_status =0;
+	char i=0, str=0,count=0;
 	init_lcd();
 	init_UART();
 	lcd_clear();	
@@ -86,56 +86,56 @@ void main()
 		lcd_20x4Position(4, 0);
 		print_lcd("SMS TEXTM OK ...... ");
 
-		transmit_UARTDataString("AT+CMGS=\"+919666333695\"");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != '>');
-		transmit_UARTDataString("GSM MODULE TEST SMS");delay_ms(100);
-		transmit_UARTDataByte(0X1A);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		lcd_20x4Position(4, 0);
-		print_lcd("SMS TEST OK .....");
-		delay_ms(100);
+//		transmit_UARTDataString("AT+CMGS=\"+919666333695\"");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != '>');
+//		transmit_UARTDataString("GSM MODULE TEST SMS");delay_ms(100);
+//		transmit_UARTDataByte(0X1A);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		lcd_20x4Position(4, 0);
+//		print_lcd("SMS TEST OK .....");
+//		delay_ms(100);
 		
 		lcd_20x4Position(4, 0);
 		print_lcd("LOADING INBOX.....");
 		delay_ms(500);
-
-		transmit_UARTDataString("AT+CMGD=1");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=2");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=3");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=4");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=5");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=6");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=7");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=8");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=9");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-		transmit_UARTDataString("AT+CMGD=10");  delay_ms(50);	transmit_UARTDataByte(0X0D);
-		while(receive_UARTDataByte() != 'O');
-		while(receive_UARTDataByte() != 'K');
-
-		
-		
-		lcd_20x4Position(4, 0);
-		print_lcd("SMS INBOX CLEAN....");
-		delay_ms(1000);
+//
+//		transmit_UARTDataString("AT+CMGD=1");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=2");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=3");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=4");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=5");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=6");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=7");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=8");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=9");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//		transmit_UARTDataString("AT+CMGD=10");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		while(receive_UARTDataByte() != 'O');
+//		while(receive_UARTDataByte() != 'K');
+//
+//		
+//		
+//		lcd_20x4Position(4, 0);
+//		print_lcd("SMS INBOX CLEAN....");
+//		delay_ms(1000);
 
 		lcd_20x4Position(4, 0);
 		print_lcd("SEND NOTICE        ");
@@ -144,85 +144,91 @@ void main()
 
 		transmit_UARTDataString("AT+CMGR=1");  delay_ms(50);	transmit_UARTDataByte(0X0D);  delay_ms(50);
 
-				
-	lcd_clear();
-		print_lcd("LOADING INBOX.....");
-		 
+			lcd_clear();
+
 		while(1)
 		{
-			while(RI !=0) RI =0; count =0; sms_byte =0;	 sms_status =0;
-
-			while(1)
-			{
-
-				if(RI == 1 && count == 14)
-				{
-					
-					sms_status = receive_UARTDataByte();
-					
-						count =0;break;
-				}
-				else if(RI == 1)
-				{
-			   	   receive_UARTDataByte();
-				   count++;
-				}
-
-				if(count > 15)
-				{
-				 count =0; break;
-				}
 		
+		 	if(RI == 1 && count <50)
+			{
+				sms_data[count] = receive_UARTDataByte();
+				count++;
 			}
-	
-		lcd_clear(); 	count =0;
-//		putc_lcd(sms_status);
-//		delay_ms(1000);
-	
-		while(RI !=0) RI =0;
-
-			transmit_UARTDataString("AT+CMGR="); transmit_UARTDataByte(sms_status); delay_ms(50);	transmit_UARTDataByte(0X0D);  delay_ms(50);
-		 	while(1)
-			{
-				while(RI ==0);
-				if(RI == 1 && count > 64)
-				{
-					sms_byte = receive_UARTDataByte();
-					sms_data[i] = sms_byte;
-
-					if (sms_byte == '&') break;
-
-					 i++;  count++;
-
-				}
-				else if(RI == 1)
-				{
-			   	   receive_UARTDataByte();
-				   count++;
-				}
-
-				if(count > 144)
-				{
-					count =0;
-					 break;	
-				}
-				
-			
-		
-			 }
-
-			lcd_clear();
-			sms_data[i] = '\0';
+			sms_data[count] = '\0';
 			print_lcd(sms_data);
-			count =0; i =0;
 
-			transmit_UARTDataString("AT+CMGD="); transmit_UARTDataByte(sms_status); delay_ms(50); 
-			transmit_UARTDataByte(0X0D);
-			while(receive_UARTDataByte() != 'O');
-			while(receive_UARTDataByte() != 'K');
+			
+				 
+//			transmit_UARTDataString("AT+CMGR=1");  delay_ms(50);	transmit_UARTDataByte(0X0D);  delay_ms(50);
+//		 
+//			  if()
+			
+//			while(receive_UARTDataByte() != '+');
+//
+//			lcd_20x4Position(4, 0); print_lcd("SEND NOTICE1       ");
+//
+//			while(receive_UARTDataByte() != '#');
+//
+//			lcd_20x4Position(4, 0); print_lcd("SEND NOTICE2       ");
+//			lcd_clear();
+//			while(1)
+//			{
+//				
+//		  	
+//				sms_data = receive_UARTDataByte();delay_ms(100);
+//				putc_lcd(sms_data);
+//
+//				if (sms_data == '#') break;
+//				if (sms_data == '\r') break;
+//				if (sms_data == '\n') break;
+//				if (sms_data == '\0') break;
+//			
+//
+//
+//			}
+
+//			transmit_UARTDataString("AT+CMGR=2");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		  	while(receive_UARTDataByte() != '#');
+//		  	lcd_clear();
+//			while(1)
+//			{
+//				sms_data = receive_UARTDataByte();
+//				putc_lcd(sms_data);
+//				if (sms_data == '#') break;
+//				if (sms_data == '\r') break;
+//				if (sms_data == '\n') break;
+//				if (sms_data == '\0') break;
+//			
+//
+//
+//			}
+
+//			transmit_UARTDataString("AT+CMGR=3");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//		  	while(receive_UARTDataByte() != '#');
+//		  	lcd_clear();
+//			while(1)
+//			{
+//				sms_data = receive_UARTDataByte();
+//				putc_lcd(sms_data);
+//				if (sms_data == '#') break;
+//				if (sms_data == '\r') break;
+//				if (sms_data == '\n') break;
+//				if (sms_data == '\0') break;
+//				
+//
+//
+//			}
+//			transmit_UARTDataString("AT+CMGD=1");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//				while(receive_UARTDataByte() != 'O');
+//				while(receive_UARTDataByte() != 'K');
+//					transmit_UARTDataString("AT+CMGD=2");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//				while(receive_UARTDataByte() != 'O');
+//				while(receive_UARTDataByte() != 'K');
+//					transmit_UARTDataString("AT+CMGD=3");  delay_ms(50);	transmit_UARTDataByte(0X0D);
+//				while(receive_UARTDataByte() != 'O');
+//				while(receive_UARTDataByte() != 'K');
 
 		}
-	
 	
 
 }
