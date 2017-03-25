@@ -1,8 +1,0 @@
-"..\bin\STARTUP.obj",
-"..\bin\lcd4bit.obj",
-"..\bin\delay.obj",
-"..\bin\uart.obj",
-"..\bin\main.obj",
-"..\bin\rfid.obj" 
-TO "..\bin\at89s52_hex" 
-PRINT(".\at89s52_hex.m51") RAMSIZE(256) 
